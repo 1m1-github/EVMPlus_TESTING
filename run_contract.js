@@ -7,22 +7,10 @@ console.log("provider", provider)
 
 const wallet = new ethers.Wallet('115409ee5cbf15ae3a470ac4aa954c1ad8ed94901069ee593507ec444f7fe1c9', provider); // Keep the private key secure!
 
-const Neuron = "0xaacDd33e07Cfd1094621DA89A0a00665261913A9";
+const Neuron = "0xc0b26667a429cD90808ED1C56a5F5Da199a07314";
 const BlackScholes = "0x5e20ee9d02234051aef23150a72a6139c0fecb59";
-// eth.getStorageAt("0xaacDd33e07Cfd1094621DA89A0a00665261913A9",0)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",1)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",2)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",3)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",4)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",5)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",6)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",7)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",8)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",9)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",10)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",11)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",12)
-// eth.getStorageAt("0xDFceCFdCA4596776029B9AcBC48Ef370B66ad043",13)
+// eth.getStorageAt("0xc0b26667a429cD90808ED1C56a5F5Da199a07314",0)
+// eth.getTransactionReceipt("0x7ca6d98c9eb823e49a67cb314e1723684193c0377de6afdddce7a13a676dda6a")
 
 // set_weights(0.4, 0.6)
 // const NeuronData = "0x61d311e80000000000000000000000000000000000000000000000000000000000000004ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0000000000000000000000000000000000000000000000000000000000000006ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff";
@@ -44,5 +32,13 @@ wallet.sendTransaction(tx).then(transaction => {
   console.log('Transaction hash:', transaction.hash);
   transaction.wait().then(receipt => {
     console.log('Transaction was mined in block:', receipt.blockNumber);
+    getLogsFromTxHash(transaction.hash)
   });
 });
+
+async function getLogsFromTxHash(txHash) {
+    // Fetch the transaction receipt
+    const receipt = await provider.getTransactionReceipt(txHash);
+    console.log('receipt.logs:', receipt.logs);
+  }
+  
